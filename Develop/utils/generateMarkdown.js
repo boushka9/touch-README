@@ -39,7 +39,8 @@ function generateMarkdown(input) {
 
   ## License
 
-  ${input.license}
+  This project is licensed under the terms of the ${input.license} license.
+  
 
   ---
 
@@ -61,7 +62,7 @@ function generateMarkdown(input) {
 
   ${input.email}
 
-  ${input.gitusername}
+  ${input.username}
 
   `;
 }
