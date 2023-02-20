@@ -4,8 +4,14 @@ const fs = require("fs");
 // inquirer package for providing error feedback asking questions, parsing input, validating answers, and managing hierarchical prompts
 const inquirer = require("inquirer");
 
+// util to promisify fs.writeFile
+const util = require('util');
+
 // access file to generate markdown
 const generateMarkdown = require("./utils/generateMarkdown");
+
+// promisify to use async await
+const writeReadMe = util.promisify(fs.writeFile);
 
 // array containing question prompts
 const questions = [
@@ -64,14 +70,38 @@ const questions = [
         name: "license",
         message: "What license did you use for your project?",
         choices: [
-            "Academic Free License v3.0", //afl-3.0
-            "Artistic license 2.0", //artistic-2.0
-            "Do What The F*ck You Want To Public License", //wtfpl
-            "GNU General Public License v3.0", //gpl-3.0
-            "Microsoft Public License", //ms-pl
-            "MIT", //mit
-            "Open Software License 3.0", //osl-3.0
-            "The Unlicense", //unlicense
+            {   //name displays in terminal, answer returns the value
+                name: "Apache 2.0", 
+                value: "[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)",    
+            },
+            {
+                name: "Boost 1.0", 
+                value: "[![License: Boost 1.0](https://img.shields.io/badge/License-Boost_1.0-lightblue.svg)](https://www.boost.org/LICENSE_1_0.txt)",   
+            },
+            {
+                name: "Creative Commons 1.0", 
+                value: "[![License: CC 1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0/)",
+            },
+            {
+                name: "GNU General Public License v3.0", 
+                value: "[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)",
+            },
+            {
+                name: "MIT", 
+                value: "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)",
+            },
+            {
+                name: "Mozilla Public License 2.0",
+                value: "[![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)",
+            },
+            {
+                name: "The Unlicense",
+                value: "[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)",
+            },
+            {
+                name: "None",
+                value: "",
+            } 
         ],
     },
     {
@@ -79,19 +109,31 @@ const questions = [
         name: "badges",
         message: "What badges would you like to include include in your README?",
         
-        choices: [
-            "Maintained: yes",
-            // https://img.shields.io/badge/maintained-yes-brightgreen
-            "Website: up",
-            // https://img.shields.io/badge/website-up-brightgreen
-            "Ask me: anything",
-            // https://img.shields.io/badge/ask%20me-anything-1abc9c.svg
-            "Made with: Markdown",
-            // https://img.shields.io/badge/made%20with-Markdown-blue
-            "Made with: JavaScript",
-            // https://img.shields.io/badge/made%20with-JavaScript-blue
-            "Contributor Covenant: 2.1"
-            // [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+        choices: [ //name displays in terminal, answer returns the value
+            {
+                name: "Maintained: yes",
+                value: "![Maintained: yes](https://img.shields.io/badge/maintained-yes-brightgreen)",
+            },
+            {
+                name: "Website: up",
+                value: "![Website: up](https://img.shields.io/badge/website-up-brightgreen)",
+            },
+            {
+                name: "Ask me: anything",
+                value: "![Ask me: anything](https://img.shields.io/badge/ask%20me-anything-1abc9c.svg)",
+            },
+            {
+                name: "Made with: Markdown",
+                value: "![Made with: Markdown](https://img.shields.io/badge/made%20with-Markdown-blue)",
+            },
+            {
+                name: "Made with: JavaScript",
+                value: "![Made with: JavaScript](https://img.shields.io/badge/made%20with-JavaScript-blue)",
+            },
+            {
+                name: "Contributor Covenant: 2.1",
+                value: "[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)",
+            }
         ],
         default: "N/A",
     },
@@ -112,10 +154,14 @@ const questions = [
         name: "email",
         message: "Provide an email address for others to contact you with questions about your application.",
         validate: (answer) => {
-            if (answer === "") {
+            //user must enter a valid email format 
+            valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(answer);
+            if (valid) {
+                return true;
+            } else if (answer === "") {
                 return "This question cannot go unanswered!";
             }
-            return true;
+            return "Please enter a valid email address";
         },
     },
     {
@@ -131,28 +177,32 @@ const questions = [
     }
 ]
 
-inquirer
-    //pass in array of questions
-  .prompt(questions)
-  .then((answers) => {
-    // Use user feedback for... whatever!!
-    console.log(answers);
-  })
-  .catch((error) => {
-    if (error.isTtyError) {
-      // Prompt couldn't be rendered in the current environment
-    } else {
-      // Something else went wrong
+//wrap inquirer to initialize w init()
+function init () {
+    inquirer
+        //pass in array of questions
+      .prompt(questions)
+      // then passin answeres to writeToFileFuntion (promise)
+      .then((answers) => {
+        console.log("YOUR README: ", answers)
+        writeToFile(answers);
+    })
+} 
+
+
+
+async function writeToFile(answers) {
+    try { //try to fullfil promise or throw err
+        
+        //connect answers to the README template in generateMarkdown.js
+        let readMeInput = generateMarkdown(answers);
+        // once readMeInput is available, create new README.md and render it
+        await writeReadMe('./generated/README.md', readMeInput);
+        console.log("README SUCCESSFULLY CREATED");
+    } catch (err) {
+        throw err;
     }
-  });
+}
 
-
-  
-// TODO: Create a function to write README file 
-function writeToFile(fileName, input) {}
-
-// TODO: Create a function to initialize app
-function init() {}
-
-// Function call to initialize app
+// call init function with inquirer inside
 init();
