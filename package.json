@@ -5,11 +5,17 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "watch": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "inquirer": "^8.2.5"
+    "@inquirer/checkbox": "^0.0.30-alpha.0",
+    "inquirer": "^8.2.5",
+    "util": "^0.12.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }

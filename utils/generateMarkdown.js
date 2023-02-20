@@ -1,22 +1,25 @@
-// TODO: Create a function that returns a license badge based on which license is passed in
-// If there is no license, return an empty string
-function renderLicenseBadge(license) {}
+// If user selects 'None', add unlicenced msg
+// Otherwise, take the 'value' of the selected license and split @the end and begining of the license name to retun just the name
+function renderLicense(license) {
+  if (license === "") {
+    return "This project is not licensed.";
+  } else {
+    let licenseValue = license.split("](");
+    licenseName = licenseValue[0].split("License: ").pop();
+  
+    return `This project is licensed under the terms of the ${licenseName} license`;
+  }
+}
 
-// TODO: Create a function that returns the license link
-// If there is no license, return an empty string
-function renderLicenseLink(license) {}
+// Function to generate README with users answers
+function generateMarkdown(answers) {
+  return `# ${answers.title} 
 
-// TODO: Create a function that returns the license section of README
-// If there is no license, return an empty string
-function renderLicenseSection(license) {}
-
-// Function to generate README with users input
-function generateMarkdown(input) {
-  return `# ${input.title} 
+  ${answers.license}
 
   ## Description
 
-  ${input.description}
+  ${answers.description}
 
   ## Table of Contents
 
@@ -27,42 +30,41 @@ function generateMarkdown(input) {
 
   ## Installation
 
-  ${input.installation}
+  ${answers.installation}
 
   ## Usage
 
-  ${input.usage}
+  ${answers.usage}
 
   ## Credits
 
-  ${input.credits}
+  ${answers.credits}
 
   ## License
 
-  This project is licensed under the terms of the ${input.license} license.
-  
+  ${renderLicense(answers.license)} 
 
   ---
 
   ## Badges
 
-  ${input.badges}
+  ${answers.badges.join("  ")}
 
   ## How to Contribute
 
-  ${input.contribute}
+  ${answers.contribute}
 
   ## Tests
 
-  ${input.tests}
+  ${answers.tests}
 
   ## Questions
 
-  If you have any questions regarding this application, you can contact me at:
+  If you have any questions regarding this application please contact me through email or GitHub:
 
-  ${input.email}
+  ${answers.email}
 
-  ${input.username}
+  ${answers.username}
 
   `;
 }
