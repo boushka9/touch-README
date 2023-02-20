@@ -19,7 +19,25 @@
 
   ## Usage
 
-  Type npm start into your terminal. You will then be presented with a series of propmts regarding what type of information you would like to include in your README. Type out your responses with as much detail as you can to ensure a thorough README, and click enter to view the next question. Some questions will require you navigate the answer options, or select multiple answers. Make sure you read the prompts and instructions carefully. On some questions you may notice '(N/A)' at the end of the question prompt, in which case you can simply press 'enter' to accept '(N/A)' as your response to that question. Otherwise, you must enter something into the text response portions to continue onto the next question. Once you have answered every question you will see your responses listed in the terminal along with a message indicating your README has been created. You will then be able to view your generated README under the 'generated' folder.
+  Type npm start into your terminal. You will then be presented with a series of propmts regarding what type of information you would like to include in your README. Type out your responses with as much detail as you can to ensure a thorough README, and click enter to view the next question. 
+
+  <img src="./utils/imgs/questions.png" alt="Example prompts" width="600"/>
+
+  Some questions will require you navigate the answer options, or select multiple answers. Make sure you read the prompts and instructions carefully. 
+  
+  <img src="./utils/imgs/arrow-keys.png" alt="Navigate to answer with arrow keys" width="350"/>
+
+  On some questions you may notice '(N/A)' at the end of the question prompt, in which case you can simply press 'enter' to accept '(N/A)' as your response to that question. Otherwise, you must enter something into the text response portions to continue onto the next question. 
+  
+  Once you have answered every question you will see your responses listed in the terminal along with a message indicating your README has been created.
+  
+  <img src="./utils/imgs/answers.png" alt="Your results" width="450"/>
+  
+  You will then be able to view your generated README under the 'generated' folder.
+
+  <img src="./utils/imgs/example-readme.png" alt="Your generated README" width="450"/>
+
+
 
   ## Credits
 
