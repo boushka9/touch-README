@@ -18,6 +18,8 @@
   To use this program, clone the code from https://github.com/boushka9/touch-README and type 'npm start' in your terminal to run.
 
   ## Usage
+  
+  Walkthrough video: https://drive.google.com/file/d/1lao4Z-lG3Am8jpxK1WRy-Zhodfl5eBp1/view?usp=sharing
 
   Type npm start into your terminal. You will then be presented with a series of propmts regarding what type of information you would like to include in your README. Type out your responses with as much detail as you can to ensure a thorough README, and click enter to view the next question. 
 
@@ -36,8 +38,7 @@
   You will then be able to view your generated README under the 'generated' folder.
 
   <img src="./utils/imgs/example-readme.png" alt="Your generated README" width="450"/>
-
-
+ 
 
   ## Credits
 
