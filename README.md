@@ -73,11 +73,11 @@ Walkthrough video: https://drive.google.com/file/d/1lao4Z-lG3Am8jpxK1WRy-Zhodfl5
  ## <img src="./utils/imgs/screenshots.png" alt="screenshots Header" height="40px">
 
   <p align="center">
-    <img src="./utils/imgs/queries.png" alt="Example prompts" width="600"/>
+    <img src="./utils/imgs/queries.png" alt="Example prompts" width="500"/>
     <br>
-    <img src="./utils/imgs/arrow-keys.png" alt="Navigate to answer with arrow keys" width="350"/>
+    <img src="./utils/imgs/arrow-keys.png" alt="Navigate to answer with arrow keys" width="500"/>
     <br>
-    <img src="./utils/imgs/answers.png" alt="Your results" width="450"/>
+    <img src="./utils/imgs/answers.png" alt="Your results" width="500"/>
   </p>
 
   
