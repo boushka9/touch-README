@@ -19,9 +19,13 @@
  ## <img src="./utils/imgs/installation.png" alt="Installation Header" height="40px">
 
   To use this program clone the code from https://github.com/boushka9/touch-README 
-
+  
+  
 
 ## <img src="./utils/imgs/usage.png" alt="Usage Header" height="40px">
+
+Walkthrough video: https://drive.google.com/file/d/1lao4Z-lG3Am8jpxK1WRy-Zhodfl5eBp1/view?usp=sharing
+
 
   1. Type npm start into your terminal. You will then be presented with a series of propmts regarding what type of information you would like to include in your README. Type out your responses with as much detail as you can to ensure a thorough README, and click enter to view the next question. 
 
